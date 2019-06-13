@@ -10,7 +10,7 @@ class Game {
     constructor () { 
         this.missed = 0;  
         this.phrases = this.createPhrases();
-        this.activePhrase = '';
+        this.activePhrase = null;
     }
     /**
     * Creates phrases for use in game
@@ -32,9 +32,8 @@ class Game {
     */
     getRandomPhrase() {
         const randomNum = Math.floor(Math.random() * this.phrases.length);
-        // select phrase and update this.activePhrase
-        this.activePhrase = this.phrases[randomNum];
-        return this.activePhrase;
+        // select phrase
+        return this.phrases[randomNum];
     };
     /**
     * Begins game by selecting a random phrase and displaying it to user
@@ -56,8 +55,9 @@ class Game {
         setTimeout(() => {
             document.querySelector('#overlay').style.display = 'none';
         }, 150);
-        // call getRandomPhrase() and addPhrase
-        this.getRandomPhrase().addPhraseToDisplay();
+        // set activePhrase to getRandomPhrase() and addPhraseToDisplay
+        this.activePhrase = this.getRandomPhrase();
+        this.activePhrase.addPhraseToDisplay();
     };
     /**
     * Checks for winning move
